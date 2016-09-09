@@ -1,0 +1,7 @@
+<suite name="HomePAgeMonitoring" verbose="1">
+    <test name="Group of group Test">
+        <classes>
+            <class name="test.java.com.owler.util.JSErrorsLogging" />
+        </classes>
+    </test>
+</suite>
