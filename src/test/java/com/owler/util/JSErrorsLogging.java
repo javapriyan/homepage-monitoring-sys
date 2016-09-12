@@ -1,8 +1,9 @@
-package test.java.com.owler.util; /**
+package com.owler.util; /**
  * Created by karthikeyan on 9/9/16.
  */
+
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
@@ -14,18 +15,22 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.logging.Level;
+
+import static org.testng.AssertJUnit.assertFalse;
 public class JSErrorsLogging {
     private WebDriver driver;
 
     @BeforeMethod
-    public void setUp() {
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        LoggingPreferences loggingprefs = new LoggingPreferences();
-        loggingprefs.enable(LogType.BROWSER, Level.ALL);
-        capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-        driver = new FirefoxDriver(capabilities);
+    public void setUp() throws IOException {
+       DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+       LoggingPreferences loggingprefs = new LoggingPreferences();
+       loggingprefs.enable(LogType.BROWSER, Level.ALL);
+       capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+       //System.setProperty("webdriver.chrome.driver","/home/kumaran/Documents/chromedriver");
+       driver=new ChromeDriver(capabilities);
     }
 
     @AfterMethod
@@ -33,17 +38,21 @@ public class JSErrorsLogging {
         driver.quit();
     }
 
-    public void ExtractJSLogs() {
-        System.out.println("::::::::::::::: Entering in to tets");
+    public String getJSLogs() {
         LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
+        StringBuffer sb= new StringBuffer();
         for (LogEntry entry : logEntries) {
-            System.out.println(new Date(entry.getTimestamp()) + " " + entry.getLevel() + " " + entry.getMessage());
+            String msg = new Date(entry.getTimestamp()) + " " + entry.getLevel() + " " + entry.getMessage();
+            System.out.println(msg);
+            sb.append(msg+ "\n");
         }
+        return sb.toString();
     }
-
     @Test
-    public void testMethod() {
-        driver.get("www.owler.com");
-        ExtractJSLogs();
+    public void testMethod() throws InterruptedException {
+        //driver.get("https://codex.wordpress.org/Using_Your_Browser_to_Diagnose_JavaScript_Errors");
+        driver.get("https://www.owler.com/");
+        String logs = getJSLogs();
+        assertFalse("Found some console error in the website"+logs,logs.length()>0);
     }
 }
