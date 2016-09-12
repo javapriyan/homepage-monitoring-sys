@@ -29,7 +29,7 @@ public class JSErrorsLogging {
        LoggingPreferences loggingprefs = new LoggingPreferences();
        loggingprefs.enable(LogType.BROWSER, Level.ALL);
        capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-       //System.setProperty("webdriver.chrome.driver","/home/kumaran/Documents/chromedriver");
+       System.setProperty("webdriver.chrome.driver","C:\\Owler\\Resources\\chromedriver-win.exe");
        driver=new ChromeDriver(capabilities);
     }
 
