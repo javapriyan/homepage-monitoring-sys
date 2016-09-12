@@ -50,8 +50,8 @@ public class JSErrorsLogging {
     }
     @Test
     public void testMethod() throws InterruptedException {
-        driver.get("https://codex.wordpress.org/Using_Your_Browser_to_Diagnose_JavaScript_Errors");
-        //driver.get("https://www.owler.com/");
+        //driver.get("https://codex.wordpress.org/Using_Your_Browser_to_Diagnose_JavaScript_Errors");
+        driver.get("https://www.owler.com/");
         String logs = getJSLogs();
         assertFalse("Found some console error in the website"+logs,logs.length()>0);
     }
