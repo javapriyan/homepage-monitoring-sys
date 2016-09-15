@@ -1,7 +1,9 @@
-<suite name="HomePAgeMonitoring" verbose="1">
-    <test name="Group of group Test">
-        <classes>
-            <class name="test.java.com.owler.util.JSErrorsLogging" />
-        </classes>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="EverythingSuite">
+    <test name="AllSuites">
+        <packages>
+            <package name=".*"/>
+        </packages>
     </test>
 </suite>
