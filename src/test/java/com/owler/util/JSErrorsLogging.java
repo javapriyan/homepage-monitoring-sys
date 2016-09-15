@@ -43,8 +43,9 @@ public class JSErrorsLogging {
         StringBuffer sb= new StringBuffer();
         for (LogEntry entry : logEntries) {
             String msg = new Date(entry.getTimestamp()) + " " + entry.getLevel() + " " + entry.getMessage();
-            System.out.println(msg);
-            sb.append(msg+ "\n");
+            if(msg.contains("ERROR")) {
+                sb.append(msg + "\n");
+            }
         }
         return sb.toString();
     }
