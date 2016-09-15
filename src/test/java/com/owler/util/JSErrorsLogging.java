@@ -29,7 +29,7 @@ public class JSErrorsLogging {
        LoggingPreferences loggingprefs = new LoggingPreferences();
        loggingprefs.enable(LogType.BROWSER, Level.ALL);
        capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
-       //System.setProperty("webdriver.chrome.driver","/home/kumaran/Documents/chromedriver");
+       System.setProperty("webdriver.chrome.driver","/home/kumaran/Documents/chromedriver");
        driver=new ChromeDriver(capabilities);
     }
 
@@ -43,7 +43,8 @@ public class JSErrorsLogging {
         StringBuffer sb= new StringBuffer();
         for (LogEntry entry : logEntries) {
             String msg = new Date(entry.getTimestamp()) + " " + entry.getLevel() + " " + entry.getMessage();
-            if(msg.contains("ERROR")) {
+            //Report iff its a serious issue
+            if(msg.contains("SEVERE")) {
                 sb.append(msg + "\n");
             }
         }
@@ -52,8 +53,9 @@ public class JSErrorsLogging {
     @Test
     public void testMethod() throws InterruptedException {
         //driver.get("https://codex.wordpress.org/Using_Your_Browser_to_Diagnose_JavaScript_Errors");
+        //driver.get("https://dev.owler.com");
         driver.get("https://www.owler.com/");
         String logs = getJSLogs();
-        assertFalse("Found some console error in the website"+logs,logs.length()>0);
+        assertFalse("Found some console error in the page"+logs,logs.length()>0);
     }
 }
